@@ -17,10 +17,10 @@ services:
     env_file:
       - .env
     environment:
-      DBGATE_DISABLE_HOME_FOLDER_USAGE: "false"
+      WEB_ROOT: /dbgate
       # Optional: single-connection mode (remove comment to use)
-      # DBGATE_SINGLE_CONNECTION: mongo
-      # DBGATE_SINGLE_URL: mongodb://user:password@host:27017/mydb
+      # SINGLE_CONNECTION: mongo
+      # SINGLE_DATABASE: mydb
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:3001"]
       interval: 30s
