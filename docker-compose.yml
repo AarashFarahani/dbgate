@@ -1,0 +1,31 @@
+services:
+  dbgate:
+    image: dbgate/dbgate:latest
+    container_name: dbgate
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    volumes:
+      # DBgate configuration & settings
+      - ./data/config:/root/.dbgate
+      # Saved connections, queries, and workspaces
+      - ./data/connections:/home/dbgate/.dbgate
+      # Plugins directory
+      - ./data/plugins:/root/.dbgate/plugins
+      # Logs
+      - ./data/logs:/var/log/dbgate
+    environment:
+      # Optional: set credentials to protect the web UI
+      # DBGATE_LOGIN: admin
+      # DBGATE_PASSWORD: secret
+      #
+      # Optional: single-connection mode (remove comment to use)
+      # DBGATE_SINGLE_CONNECTION: mongo
+      # DBGATE_SINGLE_URL: mongodb://user:password@host:27017/mydb
+      DBGATE_DISABLE_HOME_FOLDER_USAGE: "false"
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3001"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
