@@ -1,0 +1,6 @@
+# Secret files — never commit these
+.env
+.env.*
+
+# Persistent data directories
+data/

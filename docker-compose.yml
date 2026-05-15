@@ -14,15 +14,13 @@ services:
       - ./data/plugins:/root/.dbgate/plugins
       # Logs
       - ./data/logs:/var/log/dbgate
+    env_file:
+      - .env
     environment:
-      # Optional: set credentials to protect the web UI
-      # DBGATE_LOGIN: admin
-      # DBGATE_PASSWORD: secret
-      #
+      DBGATE_DISABLE_HOME_FOLDER_USAGE: "false"
       # Optional: single-connection mode (remove comment to use)
       # DBGATE_SINGLE_CONNECTION: mongo
       # DBGATE_SINGLE_URL: mongodb://user:password@host:27017/mydb
-      DBGATE_DISABLE_HOME_FOLDER_USAGE: "false"
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:3001"]
       interval: 30s
